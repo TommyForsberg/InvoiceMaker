@@ -12,15 +12,15 @@ namespace InvoiceMaker
     class EURInvoice : Invoice
     {
         public decimal ExchangeRate { get; set; }
-        public EURInvoice(Company Customer, decimal VAT, List<Service> Services, Company MyCompany, int InvoiceNumber, int PaymentPeriod) : base(Customer, VAT, Services, MyCompany, InvoiceNumber, PaymentPeriod)
+        public EURInvoice(Customer Customer, decimal VAT, List<Service> Services, MyCompany MyCompany, int InvoiceNumber, int PaymentPeriod) : base(Customer, VAT, Services, MyCompany, InvoiceNumber, PaymentPeriod)
         {
             ExchangeRate = GetCurrencyInformation();
         }
-        public decimal GetCurrencyInformation()
+        public decimal GetCurrencyInformation() //Downloads latest currency in xml file and harvest the value.
         {
             string getString;
             WebClient Wc = new WebClient();
-            getString = Wc.DownloadString("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22EURSEK%22)&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys");
+            getString = Wc.DownloadString("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22EURSEK%22)&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys");
             XmlDocument xml = new XmlDocument();
             xml.LoadXml(getString);
 

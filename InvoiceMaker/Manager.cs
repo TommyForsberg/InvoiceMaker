@@ -9,15 +9,14 @@ namespace InvoiceMaker
 {
     class Manager
     {
-
-        public Company CreateNewCompany(string Name, string Info)
+        public Company CreateNewCompany(string Name, string Adress)
         {
             if (Name == null)
                 Name = string.Empty;
-            if (Info == null)
-                Info = string.Empty;
+            if (Adress == null)
+                Adress = string.Empty;
 
-            return new Company { CompanyName = Name, CompanyInfo = Info };
+            return new Company (Name, Adress);
         }
 
         public Service CreateNewService(string label, string amount, decimal price)

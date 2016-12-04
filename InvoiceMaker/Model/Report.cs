@@ -26,13 +26,12 @@ namespace InvoiceMaker
             this.SelectedInvoices = SelectedInvoices;
             this.TotalWithVat = ReportEngine(invoice => invoice.TotalPriceIncludingVAT, invoice => invoice.Date >= StartDate && invoice.Date <= EndDate);
             this.VATAmount = ReportEngine(invoice => invoice.VATAmount, invoice => invoice.Date >= StartDate && invoice.Date <= EndDate);
-            //this.VATAmount2  = ReportEngine(invoice => invoice.ServicesTotal() * invoice.VATPercentage, invoice => invoice.Date >= StartDate && invoice.Date <= EndDate);
             this.TotalWithoutVAT = ReportEngine(invoice => invoice.ServicesTotal(), invoice => invoice.Date >= StartDate && invoice.Date <= EndDate);
             this.TaxesToBePaid = CalculateTaxes();
             this.TotalWithVATAndTaxes = TotalWithVat + TaxesToBePaid;
         }
 
-        public decimal ReportEngine(DelegateMethod calculationFilter, Func<Invoice, bool> dateFilter)
+        public decimal ReportEngine(FilterDelegate calculationFilter, Func<Invoice, bool> dateFilter)
         {
             decimal sum = 0;
             foreach (var invoice in SelectedInvoices)
@@ -40,9 +39,11 @@ namespace InvoiceMaker
                 if (dateFilter(invoice))
                 {
                     if (invoice is USDInvoice)
-                        sum += calculationFilter(invoice)* ((USDInvoice)invoice).ExchangeRate; 
+                        sum += calculationFilter(invoice)* ((USDInvoice)invoice).ExchangeRate;
+                    if (invoice is EURInvoice)
+                        sum += calculationFilter(invoice) * ((EURInvoice)invoice).ExchangeRate;
                     else
-                    sum += calculationFilter(invoice);
+                        sum += calculationFilter(invoice);
                 }
             }
             return sum;

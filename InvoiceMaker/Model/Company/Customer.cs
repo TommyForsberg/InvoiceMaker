@@ -6,5 +6,10 @@ using System.Threading.Tasks;
 
 namespace InvoiceMaker
 {
-    public delegate decimal DelegateMethod(Invoice invoice);
+    public class Customer : Company
+    {
+        public Customer(string Name, string Adress) : base(Name, Adress)
+        {
+        }
+    }
 }

@@ -37,7 +37,7 @@ namespace InvoiceMaker
 
         private void fetchCustomerButton_Click(object sender, EventArgs e) //Get customer from database to Listbox.
         {
-            customerTextBox.Text = customerRepository.GetCustomer(listBox1.SelectedIndex).CompanyInfo;
+            customerTextBox.Text = customerRepository.GetCustomer(listBox1.SelectedIndex).Adress;
         }
 
         private void addCustomerButton_Click(object sender, EventArgs e) //Add customer to database.
@@ -101,22 +101,32 @@ namespace InvoiceMaker
              }
             return services;
         }
-        private Company CreateCustomerFromTextBox()
+        private Customer CreateCustomerFromTextBox()
         {
-            if (string.IsNullOrEmpty(customerTextBox.Text.ToString()))
-            { return manager.CreateNewCompany(null,null); }
-            else
-                return new Company { CompanyName = customerTextBox.Lines[0].ToString(), CompanyInfo = customerTextBox.Text };
+            try
+            {
+                return new Customer(customerTextBox.Lines[0], customerTextBox.Text);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return new Customer(null, null);
+            }
+            //if (string.IsNullOrEmpty(customerTextBox.Text.ToString()))
+            //{ return manager.CreateNewCompany(null,null); }
+            //else
         }
 
-        private Company CreateMyCompanyFromTextBox()
+        private MyCompany CreateMyCompanyFromTextBox()
         {
-            if (string.IsNullOrEmpty(myCompanyTextBox.Text.ToString()))
-            { return manager.CreateNewCompany(null, null);
+            //if (string.IsNullOrEmpty(myAdressTextBox.Text.ToString()))
+            //{ return manager.CreateNewCompany(null, null);
 
-            }
-            else
-                return new Company { CompanyName = myCompanyTextBox.Lines[0].ToString(), CompanyInfo = myCompanyTextBox.Text };
+            //}
+           // else
+                return new MyCompany(
+                    myAdressTextBox.Lines[0], myAdressTextBox.Text, myCompanyTextBox.Text, 
+                    contactTextBox.Text, giroTextBox.Text, bankAccountTextBox.Text,ibanTextBox.Text,
+                    bicSwiftTextBox.Text  );
         }
 
         private decimal GetVatValue() //Sets Vat-value
@@ -155,44 +165,14 @@ namespace InvoiceMaker
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customerTextBox.Text = customerRepository.GetCustomer(listBox1.SelectedIndex).CompanyInfo;
+            customerTextBox.Text = customerRepository.GetCustomer(listBox1.SelectedIndex).Adress;
         }
 
-        //private void ReportCompiler() //Version1
-        //{
-        //   decimal total;
-        //   decimal vat;
-        //   decimal totalMinusVat;
-        //   DateTime startDate = startDateTimePicker.Value.Date;
-        //   DateTime endDate = endDateTimePicker.Value.Date;
-        //    if (filtersListBox.GetItemChecked(0))
-        //        total = invoiceRepository.ReportEngine(invoice => invoice.TotalPriceIncludingVAT,invoice => invoice.Date >= startDate && invoice.Date <= endDate);
-        //    else
-        //        total = 0;
-
-        //    if (filtersListBox.GetItemChecked(1))
-        //        vat = invoiceRepository.ReportEngine(invoice => invoice.ServicesTotal() * invoice.VATPercentage,  invoice => invoice.Date >= startDate && invoice.Date <= endDate);
-        //    else
-        //        vat = 0;
-
-        //    if (filtersListBox.GetItemChecked(3))
-        //        totalMinusVat = invoiceRepository.ReportEngine(invoice => invoice.ServicesTotal(), invoice => invoice.Date >= startDate && invoice.Date <= endDate);
-        //    else
-        //        totalMinusVat = 0;
-
-        //        MessageBox.Show(manager.ReportMessageBox(total,vat,totalMinusVat), "Rapport ");
-        //}
+      
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //DelegateMethod newDel = invoiceRepository.DelegateMethod2;
-            //MessageBox.Show(invoiceRepository.ReportEngine(newDel).ToString());
-            //ReportCompiler();
-            // ReportCompiler();
-            //USDInvoice test = new USDInvoice(new Company { CompanyInfo = "default", CompanyName = "default" }, 0.0M, new List<Service>(), new Company(), 1, 14);
-           // test.GetCurrencyInformation();
-            
-           Report report = new Report(invoiceRepository.FetchAllInvoices(), startDateTimePicker.Value.Date, endDateTimePicker.Value.Date);
+          Report report = new Report(invoiceRepository.FetchAllInvoices(), startDateTimePicker.Value.Date, endDateTimePicker.Value.Date);
           MessageBox.Show(report.ReportMessage(),"Rapport:");
         }
 
@@ -202,7 +182,10 @@ namespace InvoiceMaker
             logoChoice.Filter = "All Files (*.*)|*.*";
 
             if (logoChoice.ShowDialog() == DialogResult.OK)
+            {
                 selectedLogo = logoChoice.FileName;
+                pictureBox.ImageLocation = logoChoice.FileName;
+            }
             else
                 selectedLogo = string.Empty;
         }

@@ -35,7 +35,7 @@ namespace InvoiceMaker
                     File.Create(invoicesDatabase).Close();
                     if (Invoices == null)
                     {
-                        Invoices = new List<Invoice> { new Invoice(new Company { CompanyInfo = "default", CompanyName = "default" }, 0.0M, new List<Service>(), new Company(), 1,14)
+                        Invoices = new List<Invoice> { new Invoice(new Customer("default", "default" ), 0.0M, new List<Service>(), new MyCompany("default", "default","","","","","",""), 1,14)
                     };
                         string serializedInvoices = JsonConvert.SerializeObject(Invoices);
                         File.WriteAllText(invoicesDatabase, serializedInvoices);
@@ -72,6 +72,8 @@ namespace InvoiceMaker
             Update();
             if (newInvoice is USDInvoice)
                 MessageBox.Show("Fakturan har arkiverats. Dollarvärdet sattes till: " + ((USDInvoice)newInvoice).ExchangeRate.ToString());
+            if(newInvoice is EURInvoice)
+                MessageBox.Show("Fakturan har arkiverats. Dollarvärdet sattes till: " + ((EURInvoice)newInvoice).ExchangeRate.ToString());
             else
                 MessageBox.Show("Fakturan har arkiverats");
         }
@@ -89,7 +91,7 @@ namespace InvoiceMaker
 
         }
 
-        public decimal ReportEngine(DelegateMethod calculationFilter, Func<Invoice, bool> dateFilter)
+        public decimal ReportEngine(FilterDelegate calculationFilter, Func<Invoice, bool> dateFilter)
         {
             decimal sum = 0;
             foreach (var invoice in Invoices)
@@ -100,12 +102,6 @@ namespace InvoiceMaker
             return sum;
              
         }
-
-        public decimal DelegateMethod2(Invoice invoice)
-        {
-            return invoice.TotalPriceIncludingVAT;
-        }
-
         public List<Invoice> FetchAllInvoices()
         {
             return Invoices;

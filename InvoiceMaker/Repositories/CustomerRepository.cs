@@ -15,27 +15,39 @@ namespace InvoiceMaker
         public List<Company> Customers { get; set; }
 
 
-        public CustomerRepository()
+        public CustomerRepository() //Constructor mainly reads from database or creates a new one.
         {
-            
-            var directory = Environment.CurrentDirectory;
-            var customersDatabase = String.Format("{0}{1}", directory, "\\customers.json");
-            if (!Directory.Exists(directory))
-                Directory.CreateDirectory(directory);
-
-            if (!File.Exists(customersDatabase))
-                File.Create(customersDatabase);
-
-            // Customers = new List<Company> { new Company { CompanyInfo = "Sten-Sture Andersson", CompanyName = "Sten-Sture Andersson" } };
-            //string serializedProducts = JsonConvert.SerializeObject(Customers);
-            // File.WriteAllText(customersDatabase, serializedProducts);
-            string toBeDeSerialized = File.ReadAllText(customersDatabase);
-            Customers = JsonConvert.DeserializeObject<List<Company>>(toBeDeSerialized);
-
-            if(Customers == null)
+            var directory = Environment.CurrentDirectory + Path.DirectorySeparatorChar + "data";
+            var customersDatabase = String.Format("{0}{1}{2}", directory,Path.DirectorySeparatorChar, "customers.json");
+            try
             {
-            Customers = new List<Company> { new Company { CompanyInfo = "DefaultCompany", CompanyName = "DefaultCompany" } };
+                string toBeDeSerialized = File.ReadAllText(customersDatabase);
+                Customers = JsonConvert.DeserializeObject<List<Company>>(toBeDeSerialized);
+               
             }
+           catch
+            {
+                if (!Directory.Exists(directory))
+                    Directory.CreateDirectory(directory);
+
+                if (!File.Exists(customersDatabase))
+                {
+                    File.Create(customersDatabase).Close();
+                    if (Customers == null)
+                    {
+                        Customers = new List<Company> { new Company ("DefaultCompany",  "DefaultCompany" ) };
+                    }
+
+                    string serializedCustomers = JsonConvert.SerializeObject(Customers);
+                    var customerDatabase = String.Format("{0}{1}{2}", directory, Path.DirectorySeparatorChar, "customers.json");
+                    File.WriteAllText(customerDatabase, serializedCustomers);
+                    string toBeDeSerialized = File.ReadAllText(customersDatabase);
+                    Customers = JsonConvert.DeserializeObject<List<Company>>(toBeDeSerialized);
+                }
+                    
+            }
+
+            
         }
         public Company[] GetAll()
         {
@@ -44,17 +56,17 @@ namespace InvoiceMaker
 
         public void Add(Company newCustomer) //lägger till kund i lista om den inte redan finns
         {
-            var singleCust = Customers.SingleOrDefault(single => single.CompanyName.Contains(newCustomer.CompanyName));
+            var singleCust = Customers.SingleOrDefault(single => single.Name.Contains(newCustomer.Name));
             if(singleCust != null)
             {
-                singleCust.CompanyInfo = newCustomer.CompanyInfo;
+                singleCust.Adress = newCustomer.Adress;
             }
             else { Customers.Add(newCustomer); }
         }
 
         public string[] GetStringNames()
         {
-            return Customers.Select(x => x.CompanyName).ToArray();
+            return Customers.Select(x => x.Name).ToArray();
         }
 
         public Company GetCustomer(int selectedIndex)
@@ -65,8 +77,8 @@ namespace InvoiceMaker
         public void Update()
         {
         string serializedCustomers = JsonConvert.SerializeObject(Customers);
-        var directory = Environment.CurrentDirectory;
-        var customerDatabase = String.Format("{0}{1}", directory, "\\customers.json");
+        var directory = Environment.CurrentDirectory + Path.DirectorySeparatorChar + "data";
+        var customerDatabase = String.Format("{0}{1}{2}", directory, Path.DirectorySeparatorChar,"customers.json");
         File.WriteAllText(customerDatabase, serializedCustomers);
         }
 

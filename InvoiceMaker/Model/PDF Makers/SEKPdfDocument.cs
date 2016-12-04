@@ -42,10 +42,10 @@ namespace InvoiceMaker
             
          
             PdfPTable logoTable = new PdfPTable(1);
-            logoTable.DefaultCell.FixedHeight = 60;
+            logoTable.DefaultCell.FixedHeight = 85;
             logoTable.HorizontalAlignment = 1;
             logoTable.DefaultCell.HorizontalAlignment = 1;
-            logoTable.DefaultCell.BorderWidth = 1;
+            logoTable.DefaultCell.BorderWidth = 0;
             // logoTable.AddCell(new Phrase("JD", helveticaBold42));
             Image logo;
             if (LogoPath != null)
@@ -77,7 +77,7 @@ namespace InvoiceMaker
             //table with customer in upper right corner
             PdfPTable customerTable = new PdfPTable(1);
             customerTable.WidthPercentage = 100;
-            PdfPCell customerCell = new PdfPCell(new Phrase(Model.Customer.CompanyInfo.ToString()));
+            PdfPCell customerCell = new PdfPCell(new Phrase(Model.Customer.Adress.ToString()));
             customerCell.BorderWidth = 0;
             customerCell.HorizontalAlignment = 2;
             customerTable.AddCell(customerCell);
@@ -176,13 +176,13 @@ namespace InvoiceMaker
             float[] subTableLeftWidths = new float[] { 2f, 5f };
             subTableLeft.SetWidths(subTableLeftWidths);
             subTableLeft.AddCell(new Phrase("\n\n\nBankgiro", helvetica11));
-            subTableLeft.AddCell(new Phrase("\n\n\n560-5753", helvetica11));
+            subTableLeft.AddCell(new Phrase("\n\n\n" + Model.MyCompany.Giro, helvetica11));
             subTableLeft.AddCell(new Phrase("Bankkonto", helvetica11));
-            subTableLeft.AddCell(new Phrase("6109 - 833 436 228", helvetica11));
+            subTableLeft.AddCell(new Phrase(Model.MyCompany.BankAccount, helvetica11));
             subTableLeft.AddCell(new Phrase("IBAN", helvetica11));
-            subTableLeft.AddCell(new Phrase("SE89 60 00 0000 0008 3343 6228", helvetica11));
+            subTableLeft.AddCell(new Phrase(Model.MyCompany.IBAN, helvetica11));
             subTableLeft.AddCell(new Phrase("BIC/SWIFT", helvetica11));
-            subTableLeft.AddCell(new Phrase("HANDSESS", helvetica11));
+            subTableLeft.AddCell(new Phrase(Model.MyCompany.BicSwift, helvetica11));
 
 
             PdfPTable subTableRight = new PdfPTable(2);
@@ -215,10 +215,10 @@ namespace InvoiceMaker
             bottomBorder.WidthPercentage = 100;
 
             //bottomBorder.AddCell(new Phrase("\nJonathan Dahl\nJakobsdalsvägen 10\n126 54 Stockholm\n SWEDEN", helvetica12));
-            bottomBorder.AddCell(new Phrase("\n" + Model.MyCompany.CompanyInfo, helvetica12));
+            bottomBorder.AddCell(new Phrase("\n" + Model.MyCompany.Adress, helvetica12));
 
-            bottomBorder.AddCell(new Phrase("\n070-5526568\ncontact@jonathandahl.se", helvetica12));
-            bottomBorder.AddCell(new Phrase("\nOrg.nr 8402136678\nMomsreg.nr\nSE840213667801\nGodkänd för F - skatt", helvetica12));
+            bottomBorder.AddCell(new Phrase("\n" + Model.MyCompany.ContactInfo, helvetica12));
+            bottomBorder.AddCell(new Phrase("\n" + Model.MyCompany.MyCompanyInfo, helvetica12));
 
 
 

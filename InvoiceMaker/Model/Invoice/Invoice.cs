@@ -9,8 +9,8 @@ namespace InvoiceMaker
    public class Invoice
     {
        public DateTime Date { get; set; }
-       public Company MyCompany { get; set; }
-       public Company Customer { get; set; }
+       public MyCompany MyCompany { get; set; }
+       public Customer Customer { get; set; }
        public List<Service> Services { get; set; }
        public  decimal VATPercentage { get; set; }
        public decimal VATAmount { get; set; }
@@ -20,7 +20,7 @@ namespace InvoiceMaker
        public bool ControllCalculation { get; set; }
 
 
-        public Invoice(Company Customer,decimal VAT, List<Service> Services, Company MyCompany, int InvoiceNumber, int PaymentPeriod)
+        public Invoice(Customer Customer,decimal VAT, List<Service> Services, MyCompany MyCompany, int InvoiceNumber, int PaymentPeriod)
         {
             this.MyCompany = MyCompany;
             this.VATPercentage = VAT;

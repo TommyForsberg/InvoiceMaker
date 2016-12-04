@@ -56,13 +56,13 @@ namespace InherentInvoiceTest
         [TestMethod]
         public void ReportEngineCalculationTest()
         {
-            var uSDInvoice = new USDInvoice(new Company { CompanyInfo = "default", CompanyName = "default" }, 0.0M,
+            var uSDInvoice = new USDInvoice(new Company { Adress = "default", Name = "default" }, 0.0M,
              new List<Service> { new Service("USD", "2", 600) }, new Company(), 1, 14);
 
             List<Invoice> TestInvoice;
             TestInvoice = new List<Invoice>
             {
-                new Invoice(new Company { CompanyInfo = "default", CompanyName = "default" }, 0.25M,
+                new Invoice(new Company { Adress = "default", Name = "default" }, 0.25M,
                 new List<Service> { new Service ("SEK", "1", 12000)}, new Company(), 1,14)
              };
 

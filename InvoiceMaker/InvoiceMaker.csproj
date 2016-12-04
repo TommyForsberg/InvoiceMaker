@@ -71,6 +71,10 @@
       <HintPath>..\packages\iTextSharp.5.5.10\lib\itextsharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ModernHttpClient, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\modernhttpclient.2.4.2\lib\Portable-Net45+WinRT45+WP8+WPA81\ModernHttpClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -88,15 +92,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DelegateMethod.cs" />
+    <Compile Include="Model\Company\Customer.cs" />
+    <Compile Include="Delegate\FilterDelegate.cs" />
     <Compile Include="Model\Invoice\EURInvoice.cs" />
-    <Compile Include="Model\Invoice\PDF Templates\IPdfDocument.cs" />
+    <Compile Include="Model\PDF Makers\Interface\IPdfDocument.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Model\Invoice\Invoice.cs" />
     <Compile Include="Model\Report.cs" />
+    <Compile Include="Model\Company\MyCompany.cs" />
     <Compile Include="Repositories\InvoiceRepository.cs" />
-    <Compile Include="Model\Company.cs" />
-    <Compile Include="Model\Invoice\PDF Templates\SEKPdfDocument.cs" />
+    <Compile Include="Model\Company\Abstract Class\Company.cs" />
+    <Compile Include="Model\PDF Makers\SEKPdfDocument.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
