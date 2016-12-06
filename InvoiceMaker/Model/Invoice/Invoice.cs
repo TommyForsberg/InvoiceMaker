@@ -8,16 +8,16 @@ namespace InvoiceMaker
 {
    public class Invoice
     {
-       public DateTime Date { get; set; }
-       public MyCompany MyCompany { get; set; }
-       public Customer Customer { get; set; }
-       public List<Service> Services { get; set; }
-       public  decimal VATPercentage { get; set; }
-       public decimal VATAmount { get; set; }
-       public int InvoiceNumber { get; set; }
-        public int PaymentPeriod { get; set; }
-        public decimal TotalPriceIncludingVAT { get; set; }
-       public bool ControllCalculation { get; set; }
+       public DateTime Date { get; private set; }
+       public MyCompany MyCompany { get; private set; }
+       public Customer Customer { get; private set; }
+       public List<Service> Services { get; private set; }
+       public decimal VATPercentage { get; private set; }
+       public decimal VATAmount { get; private set; }
+       public int InvoiceNumber { get; private set; }
+       public int PaymentPeriod { get; private set; }
+       public decimal TotalPriceIncludingVAT { get; private set; }
+       protected bool ControllCalculation { get; set; }
 
 
         public Invoice(Customer Customer,decimal VAT, List<Service> Services, MyCompany MyCompany, int InvoiceNumber, int PaymentPeriod)
@@ -35,7 +35,7 @@ namespace InvoiceMaker
             
         }
 
-        public decimal ServicesTotal()
+        internal decimal ServicesTotal() //Calculates all services in List of services.
         {
             decimal ServicesTotal = 0;
             foreach(var service in Services)
@@ -45,12 +45,12 @@ namespace InvoiceMaker
             return ServicesTotal;
         }
 
-        protected decimal VATCalculator()
+        private decimal VATCalculator() //Returns total with VAT
         {
             return ServicesTotal() * VATPercentage;
         }
 
-        protected bool Controll()
+        protected bool Controll() //will be removed
         {
             if (TotalPriceIncludingVAT == ServicesTotal() + VATAmount && TotalPriceIncludingVAT - VATAmount == ServicesTotal() && ServicesTotal() * VATPercentage == VATAmount)
                 return true;

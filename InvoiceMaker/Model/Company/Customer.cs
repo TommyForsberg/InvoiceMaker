@@ -8,7 +8,8 @@ namespace InvoiceMaker
 {
     public class Customer : Company
     {
-        public Customer(string Name, string Adress) : base(Name, Adress)
+      
+       public Customer(string Name, string Adress) : base(Name, Adress)
         {
         }
     }

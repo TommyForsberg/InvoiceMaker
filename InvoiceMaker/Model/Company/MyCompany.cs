@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace InvoiceMaker
 {
-    public class MyCompany : Company //ska ha alla properties som det finns textrutor i form.
+    public class MyCompany : Company 
     {
-        public string MyCompanyInfo { get; set; }
-        public string ContactInfo { get; set; }
-        public string Giro { get; set; }
-        public string BankAccount { get; set; }
-        public string IBAN { get; set; }
-        public string BicSwift { get; set; }
+        public string MyCompanyInfo { get; private set; }
+        public string ContactInfo { get; private set; }
+        public string Giro { get; private set; }
+        public string BankAccount { get; private set; }
+        public string IBAN { get; private set; }
+        public string BicSwift { get; private set; }
         public MyCompany(
             string Name, string Adress, string MyCompanyInfo, string ContactInfo, 
             string Giro, string BankAccount, string IBAN, string BicSwift) : base(Name, Adress)

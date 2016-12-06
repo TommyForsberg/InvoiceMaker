@@ -5,6 +5,7 @@
         /// <summary>
         /// Required designer variable.
         /// </summary>
+        
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
@@ -47,14 +48,14 @@
             this.radioButtonVAT0 = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.deleteCustomerButton = new System.Windows.Forms.Button();
-            this.fetchCustomerButton = new System.Windows.Forms.Button();
+            this.pushCustomerToReportButton = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.addCustomerButton = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.customerFilterTextBox = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
+            this.customerRadioButton = new System.Windows.Forms.RadioButton();
             this.allRadioButton = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
             this.startDateTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -118,7 +119,6 @@
             this.myAdressTextBox.Name = "myAdressTextBox";
             this.myAdressTextBox.Size = new System.Drawing.Size(188, 95);
             this.myAdressTextBox.TabIndex = 1;
-            this.myAdressTextBox.Text = "Jonathan Dahl\r\nJakobsdalsvägen 10,\r\n126 54, Stockholm\r\nSWEDEN\r\n";
             // 
             // label1
             // 
@@ -259,7 +259,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.deleteCustomerButton);
-            this.groupBox3.Controls.Add(this.fetchCustomerButton);
+            this.groupBox3.Controls.Add(this.pushCustomerToReportButton);
             this.groupBox3.Controls.Add(this.listBox1);
             this.groupBox3.Location = new System.Drawing.Point(715, 150);
             this.groupBox3.Name = "groupBox3";
@@ -278,15 +278,15 @@
             this.deleteCustomerButton.UseVisualStyleBackColor = true;
             this.deleteCustomerButton.Click += new System.EventHandler(this.deleteCustomerButton_Click);
             // 
-            // fetchCustomerButton
+            // pushCustomerToReportButton
             // 
-            this.fetchCustomerButton.Location = new System.Drawing.Point(273, 155);
-            this.fetchCustomerButton.Name = "fetchCustomerButton";
-            this.fetchCustomerButton.Size = new System.Drawing.Size(90, 54);
-            this.fetchCustomerButton.TabIndex = 1;
-            this.fetchCustomerButton.Text = "↓";
-            this.fetchCustomerButton.UseVisualStyleBackColor = true;
-            this.fetchCustomerButton.Click += new System.EventHandler(this.fetchCustomerButton_Click);
+            this.pushCustomerToReportButton.Location = new System.Drawing.Point(273, 155);
+            this.pushCustomerToReportButton.Name = "pushCustomerToReportButton";
+            this.pushCustomerToReportButton.Size = new System.Drawing.Size(90, 54);
+            this.pushCustomerToReportButton.TabIndex = 1;
+            this.pushCustomerToReportButton.Text = "↓";
+            this.pushCustomerToReportButton.UseVisualStyleBackColor = true;
+            this.pushCustomerToReportButton.Click += new System.EventHandler(this.pushCustomerToReportButton_Click);
             // 
             // listBox1
             // 
@@ -310,10 +310,10 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.textBox1);
+            this.groupBox4.Controls.Add(this.customerFilterTextBox);
             this.groupBox4.Controls.Add(this.button3);
             this.groupBox4.Controls.Add(this.label4);
-            this.groupBox4.Controls.Add(this.radioButton6);
+            this.groupBox4.Controls.Add(this.customerRadioButton);
             this.groupBox4.Controls.Add(this.allRadioButton);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.startDateTimePicker);
@@ -325,12 +325,12 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Rapporter";
             // 
-            // textBox1
+            // customerFilterTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(177, 25);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(190, 26);
-            this.textBox1.TabIndex = 8;
+            this.customerFilterTextBox.Location = new System.Drawing.Point(177, 25);
+            this.customerFilterTextBox.Name = "customerFilterTextBox";
+            this.customerFilterTextBox.Size = new System.Drawing.Size(190, 26);
+            this.customerFilterTextBox.TabIndex = 8;
             // 
             // button3
             // 
@@ -351,16 +351,16 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Till";
             // 
-            // radioButton6
+            // customerRadioButton
             // 
-            this.radioButton6.AutoSize = true;
-            this.radioButton6.Location = new System.Drawing.Point(99, 26);
-            this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(71, 24);
-            this.radioButton6.TabIndex = 3;
-            this.radioButton6.TabStop = true;
-            this.radioButton6.Text = "Kund";
-            this.radioButton6.UseVisualStyleBackColor = true;
+            this.customerRadioButton.AutoSize = true;
+            this.customerRadioButton.Location = new System.Drawing.Point(99, 26);
+            this.customerRadioButton.Name = "customerRadioButton";
+            this.customerRadioButton.Size = new System.Drawing.Size(71, 24);
+            this.customerRadioButton.TabIndex = 3;
+            this.customerRadioButton.TabStop = true;
+            this.customerRadioButton.Text = "Kund";
+            this.customerRadioButton.UseVisualStyleBackColor = true;
             // 
             // allRadioButton
             // 
@@ -548,7 +548,7 @@
             // 
             // buttonLogo
             // 
-            this.buttonLogo.Location = new System.Drawing.Point(425, 239);
+            this.buttonLogo.Location = new System.Drawing.Point(425, 242);
             this.buttonLogo.Name = "buttonLogo";
             this.buttonLogo.Size = new System.Drawing.Size(102, 38);
             this.buttonLogo.TabIndex = 20;
@@ -563,7 +563,6 @@
             this.myCompanyTextBox.Name = "myCompanyTextBox";
             this.myCompanyTextBox.Size = new System.Drawing.Size(188, 95);
             this.myCompanyTextBox.TabIndex = 21;
-            this.myCompanyTextBox.Text = "Org.nr 8402136678\r\nMomsreg.nr\r\nSE840213667801\r\nGodkänd för F - skatt";
             // 
             // adress
             // 
@@ -581,7 +580,6 @@
             this.contactTextBox.Name = "contactTextBox";
             this.contactTextBox.Size = new System.Drawing.Size(237, 74);
             this.contactTextBox.TabIndex = 23;
-            this.contactTextBox.Text = "070-5526568\r\ncontact@jonathandahl.se\r\n";
             // 
             // contactLabel
             // 
@@ -594,27 +592,24 @@
             // 
             // bankAccountTextBox
             // 
-            this.bankAccountTextBox.Location = new System.Drawing.Point(425, 95);
+            this.bankAccountTextBox.Location = new System.Drawing.Point(425, 103);
             this.bankAccountTextBox.Name = "bankAccountTextBox";
             this.bankAccountTextBox.Size = new System.Drawing.Size(277, 26);
             this.bankAccountTextBox.TabIndex = 25;
-            this.bankAccountTextBox.Text = "6109 - 833 436 228";
             // 
             // ibanTextBox
             // 
-            this.ibanTextBox.Location = new System.Drawing.Point(425, 141);
+            this.ibanTextBox.Location = new System.Drawing.Point(425, 155);
             this.ibanTextBox.Name = "ibanTextBox";
             this.ibanTextBox.Size = new System.Drawing.Size(277, 26);
             this.ibanTextBox.TabIndex = 26;
-            this.ibanTextBox.Text = "SE89 60 00 0000 0008 3343 6228";
             // 
             // bicSwiftTextBox
             // 
-            this.bicSwiftTextBox.Location = new System.Drawing.Point(425, 187);
+            this.bicSwiftTextBox.Location = new System.Drawing.Point(425, 208);
             this.bicSwiftTextBox.Name = "bicSwiftTextBox";
             this.bicSwiftTextBox.Size = new System.Drawing.Size(277, 26);
             this.bicSwiftTextBox.TabIndex = 27;
-            this.bicSwiftTextBox.Text = "HANDSESS";
             // 
             // giroTextBox
             // 
@@ -622,7 +617,6 @@
             this.giroTextBox.Name = "giroTextBox";
             this.giroTextBox.Size = new System.Drawing.Size(277, 26);
             this.giroTextBox.TabIndex = 28;
-            this.giroTextBox.Text = "560-5753";
             // 
             // label7
             // 
@@ -636,7 +630,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(429, 75);
+            this.label8.Location = new System.Drawing.Point(429, 80);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(86, 20);
             this.label8.TabIndex = 30;
@@ -645,7 +639,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(429, 121);
+            this.label9.Location = new System.Drawing.Point(429, 134);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(47, 20);
             this.label9.TabIndex = 31;
@@ -654,7 +648,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(429, 167);
+            this.label10.Location = new System.Drawing.Point(429, 186);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(90, 20);
             this.label10.TabIndex = 32;
@@ -662,12 +656,13 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(591, 239);
+            this.saveButton.Location = new System.Drawing.Point(591, 242);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(108, 38);
             this.saveButton.TabIndex = 33;
             this.saveButton.Text = "Spara";
             this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // pictureBox
             // 
@@ -759,11 +754,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button fetchCustomerButton;
+        private System.Windows.Forms.Button pushCustomerToReportButton;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DateTimePicker endDateTimePicker;
         private System.Windows.Forms.DateTimePicker startDateTimePicker;
-        private System.Windows.Forms.RadioButton radioButton6;
+        private System.Windows.Forms.RadioButton customerRadioButton;
         private System.Windows.Forms.RadioButton allRadioButton;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button3;
@@ -781,7 +776,7 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.RadioButton radioButton30Days;
         private System.Windows.Forms.RadioButton radioButton14Days;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox customerFilterTextBox;
         private System.Windows.Forms.GroupBox groupBoxCurrency;
         private System.Windows.Forms.RadioButton radioButtonEUR;
         private System.Windows.Forms.RadioButton radioButtonUSD;

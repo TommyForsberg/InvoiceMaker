@@ -6,13 +6,40 @@ using System.Threading.Tasks;
 
 namespace InvoiceMaker
 {
-    public class Company
+    public abstract class Company
     {
-       
-        public string Name { get; set; }
-        public string Adress { get; set;  }
+        string adress;
+        string name;  
+       public string Name
+        {
+            get
+            {
+                return name;
+            }
+            private set
+            {
+                if (value == null)
+                    name = string.Empty;
+                else
+                    name = value;
+             }
+        }
+        public string Adress
+        {
+            get
+            {
+                return adress;
+            }
+             set
+            {
+                if (value == null)
+                    adress = string.Empty;
+                else
+                    adress= value;
+            }
+        }
 
-        public Company(string Name, string Adress)
+        protected Company(string Name, string Adress)
         {
             this.Name = Name;
             this.Adress = Adress;

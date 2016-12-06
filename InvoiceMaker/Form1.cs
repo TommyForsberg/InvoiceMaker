@@ -12,7 +12,6 @@ namespace InvoiceMaker
 {
     public partial class Form1 : Form
     {
-        Manager manager = new Manager();
         CustomerRepository customerRepository = new CustomerRepository();
         InvoiceRepository invoiceRepository = new InvoiceRepository();
         string selectedLogo;
@@ -20,6 +19,18 @@ namespace InvoiceMaker
         {
             InitializeComponent();
             UpdateDataSources();
+            InitializeMyCompanyTextBoxes();
+        }
+
+        private void InitializeMyCompanyTextBoxes()
+        {
+            this.myAdressTextBox.Text = customerRepository.CurrentCompany.Adress;
+            this.myCompanyTextBox.Text = customerRepository.CurrentCompany.MyCompanyInfo;
+            this.contactTextBox.Text = customerRepository.CurrentCompany.ContactInfo;
+            this.giroTextBox.Text = customerRepository.CurrentCompany.Giro;
+            this.bankAccountTextBox.Text = customerRepository.CurrentCompany.BankAccount;
+            this.ibanTextBox.Text = customerRepository.CurrentCompany.IBAN;
+            this.bicSwiftTextBox.Text = customerRepository.CurrentCompany.BicSwift;
         }
 
         void UpdateDataSources() //Refresh windows form.
@@ -29,15 +40,21 @@ namespace InvoiceMaker
             invoiceNumberNumericUpDown.Value = invoiceRepository.GetNextInvoiceNumber();
             archiveComboBox.DataSource = invoiceRepository.GetAllInvoiceNumbers();
         }
-
         private void createPdfButton_Click(object sender, EventArgs e) //Initialize Pdfmaker.
         {
-            SEKPdfDocument temp = new SEKPdfDocument(CompileNewInvoice(),selectedLogo);
+            IPdfDocument pdfInvoice;
+            if (radioButtonUSD.Checked)
+                pdfInvoice = new USDPdfDocument(CompileNewInvoice(), selectedLogo);
+            else if (radioButtonEUR.Checked)
+                pdfInvoice = new EURPdfDocument(CompileNewInvoice(), selectedLogo);
+            else
+                pdfInvoice = new SEKPdfDocument(CompileNewInvoice(), selectedLogo);
+             //SEKPdfDocument temp = new SEKPdfDocument(CompileNewInvoice(),selectedLogo);
         }
 
-        private void fetchCustomerButton_Click(object sender, EventArgs e) //Get customer from database to Listbox.
+        private void pushCustomerToReportButton_Click(object sender, EventArgs e) //Get customer from database to Listbox.
         {
-            customerTextBox.Text = customerRepository.GetCustomer(listBox1.SelectedIndex).Adress;
+            customerFilterTextBox.Text = customerTextBox.Lines[0];
         }
 
         private void addCustomerButton_Click(object sender, EventArgs e) //Add customer to database.
@@ -48,10 +65,8 @@ namespace InvoiceMaker
             }
             else
             {
-                customerRepository.Add(manager.CreateNewCompany(customerTextBox.Lines[0].ToString(), customerTextBox.Text));
+                customerRepository.Add(new Customer(customerTextBox.Lines[0].ToString(), customerTextBox.Text));
             }
-
-            customerRepository.Update();
             UpdateDataSources();
         }
         Invoice CompileNewInvoice() //Create invoice for archive or pdf
@@ -96,7 +111,7 @@ namespace InvoiceMaker
                     price = 0;
                     MessageBox.Show("Prisfältet får inte lämnas tomt. Fältet har automatiskt satts till '0'.");
                 }
-                    var newService = manager.CreateNewService(label, amount, price); //Sends to service-constructor.
+                    var newService = new Service(label, amount, price); //Sends to service-constructor.
                     services.Add(newService);
              }
             return services;
@@ -111,18 +126,10 @@ namespace InvoiceMaker
             {
                 return new Customer(null, null);
             }
-            //if (string.IsNullOrEmpty(customerTextBox.Text.ToString()))
-            //{ return manager.CreateNewCompany(null,null); }
-            //else
         }
 
         private MyCompany CreateMyCompanyFromTextBox()
         {
-            //if (string.IsNullOrEmpty(myAdressTextBox.Text.ToString()))
-            //{ return manager.CreateNewCompany(null, null);
-
-            //}
-           // else
                 return new MyCompany(
                     myAdressTextBox.Lines[0], myAdressTextBox.Text, myCompanyTextBox.Text, 
                     contactTextBox.Text, giroTextBox.Text, bankAccountTextBox.Text,ibanTextBox.Text,
@@ -167,13 +174,16 @@ namespace InvoiceMaker
         {
             customerTextBox.Text = customerRepository.GetCustomer(listBox1.SelectedIndex).Adress;
         }
-
-      
-
         private void button3_Click(object sender, EventArgs e)
         {
-          Report report = new Report(invoiceRepository.FetchAllInvoices(), startDateTimePicker.Value.Date, endDateTimePicker.Value.Date);
-          MessageBox.Show(report.ReportMessage(),"Rapport:");
+            bool fetchAllInvoices;
+            if(customerRadioButton.Checked == true)
+                fetchAllInvoices = false;
+            else
+                fetchAllInvoices = true;
+
+            Report report = new Report(invoiceRepository.FetchAllInvoices(fetchAllInvoices, customerFilterTextBox.Text), startDateTimePicker.Value.Date, endDateTimePicker.Value.Date);
+            MessageBox.Show(report.ReportMessage(), "Rapport:");
         }
 
         private void buttonLogo_Click(object sender, EventArgs e)
@@ -188,6 +198,11 @@ namespace InvoiceMaker
             }
             else
                 selectedLogo = string.Empty;
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            customerRepository.SaveMyCompany(CreateMyCompanyFromTextBox());
         }
     }
     }

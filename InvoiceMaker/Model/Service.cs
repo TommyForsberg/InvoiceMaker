@@ -9,10 +9,10 @@ namespace InvoiceMaker
 {
      public class Service
     {
-        public string Label { get; set; }
-        public string Amount { get; set; }
-        public decimal Price { get; set; }
-        public decimal ServiceTotalWithoutVAT { get; set; }
+        public string Label { get; private set; }
+        public string Amount { get; private set; }
+        public decimal Price { get; private set; }
+        public decimal ServiceTotalWithoutVAT { get; private set; }
 
         public Service(string Label, string Amount, decimal Price)
         {
@@ -21,7 +21,7 @@ namespace InvoiceMaker
             this.Price = Price;
             ServiceTotalWithoutVAT = ServiceTotalCalculator(Amount, Price);
         }
-        decimal ServiceTotalCalculator(string amount, decimal price) //Since all chars are allowed in amount
+        private decimal ServiceTotalCalculator(string amount, decimal price) //Since all chars are allowed in amount, it need to be parsed.
         {
             decimal value;
             if (decimal.TryParse(amount, out value))

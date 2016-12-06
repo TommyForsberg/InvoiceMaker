@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="InvoiceMaker.Company" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAgEAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Company\Abstract Class\Company.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InvoiceMaker.Customer" Collapsed="true">
+    <Position X="3.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Company\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InvoiceMaker.MyCompany" Collapsed="true">
+    <Position X="2.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAgAAAIAAAAAAAAIAAIAAAAAgAA=</HashCode>
+      <FileName>Model\Company\MyCompany.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InvoiceMaker.EURInvoice" Collapsed="true">
+    <Position X="6.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Invoice\EURInvoice.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InvoiceMaker.Invoice" Collapsed="true">
+    <Position X="5.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAEAAAAAAAAAAEAAAgAAAAAAAEAAAAABABBAkAJAEAA=</HashCode>
+      <FileName>Model\Invoice\Invoice.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InvoiceMaker.USDInvoice" Collapsed="true">
+    <Position X="4.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Invoice\USDInvoice.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InvoiceMaker.SEKPdfDocument" Collapsed="true">
+    <Position X="9" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ADAAAFQAAAAgCAAAAACAAAEBBAAAIAAAABgABEAAAAA=</HashCode>
+      <FileName>Model\PDF Makers\SEKPdfDocument.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="InvoiceMaker.EURPdfDocument" Collapsed="true">
+    <Position X="8.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Model\PDF Makers\EURPdfDocument.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InvoiceMaker.USDPdfDocument" Collapsed="true">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Model\PDF Makers\USDPdfDocument.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="InvoiceMaker.Report" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAQAAAAAAAAAAAAABCAAAgAAAAAAQAAABIAEBAABA=</HashCode>
+      <FileName>Model\Report.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InvoiceMaker.Service" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEQAAAAAAAAQEAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Service.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InvoiceMaker.CustomerRepository" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAOAEAAgBAAUAAAABBAAAAAAQAAAAAAAAAAACAABAAA=</HashCode>
+      <FileName>Repositories\CustomerRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InvoiceMaker.InvoiceRepository" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYIAEAAAAAYAAAAAAAAAAAQAAAAAAgAAAAAACAAAAA=</HashCode>
+      <FileName>Repositories\InvoiceRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="InvoiceMaker.IPdfDocument" Collapsed="true">
+    <Position X="9" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ADAAAFQAAAAgCAAAAACAAAEBBAAAIAAAABgABEAAAAA=</HashCode>
+      <FileName>Model\PDF Makers\Interface\IPdfDocument.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Delegate Name="InvoiceMaker.FilterDelegate" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Delegate\FilterDelegate.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

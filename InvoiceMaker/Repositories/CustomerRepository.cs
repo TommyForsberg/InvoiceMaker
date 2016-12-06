@@ -8,84 +8,98 @@ using Newtonsoft.Json;
 
 namespace InvoiceMaker
 {
-
+    
     class CustomerRepository
     {
+        string directory;
+        string customerDatabase;
+        string myCompanyDataBase;
+        private List<Customer> Customers { get; set; }
+        public MyCompany CurrentCompany { get; private set; }
 
-        public List<Company> Customers { get; set; }
-
-
-        public CustomerRepository() //Constructor mainly reads from database or creates a new one.
+        public CustomerRepository() //Reads from database or creates a new one.
         {
-            var directory = Environment.CurrentDirectory + Path.DirectorySeparatorChar + "data";
-            var customersDatabase = String.Format("{0}{1}{2}", directory,Path.DirectorySeparatorChar, "customers.json");
-            try
-            {
-                string toBeDeSerialized = File.ReadAllText(customersDatabase);
-                Customers = JsonConvert.DeserializeObject<List<Company>>(toBeDeSerialized);
-               
-            }
-           catch
-            {
-                if (!Directory.Exists(directory))
-                    Directory.CreateDirectory(directory);
-
-                if (!File.Exists(customersDatabase))
-                {
-                    File.Create(customersDatabase).Close();
-                    if (Customers == null)
-                    {
-                        Customers = new List<Company> { new Company ("DefaultCompany",  "DefaultCompany" ) };
-                    }
-
-                    string serializedCustomers = JsonConvert.SerializeObject(Customers);
-                    var customerDatabase = String.Format("{0}{1}{2}", directory, Path.DirectorySeparatorChar, "customers.json");
-                    File.WriteAllText(customerDatabase, serializedCustomers);
-                    string toBeDeSerialized = File.ReadAllText(customersDatabase);
-                    Customers = JsonConvert.DeserializeObject<List<Company>>(toBeDeSerialized);
-                }
-                    
-            }
-
-            
+            directory = Environment.CurrentDirectory + Path.DirectorySeparatorChar + "data";
+            customerDatabase = String.Format("{0}{1}{2}", directory,Path.DirectorySeparatorChar, "customers.json");
+            InitializeCustomersDataBase();
+            InitializeMyCompanyProperties();
         }
-        public Company[] GetAll()
-        {
-            return Customers.ToArray();
-        }
-
-        public void Add(Company newCustomer) //lägger till kund i lista om den inte redan finns
-        {
+        internal void Add(Customer newCustomer) //Checks if new customer exists in list and edits the same if present.
+        {                                      //If not present, the new customer is added to list.
             var singleCust = Customers.SingleOrDefault(single => single.Name.Contains(newCustomer.Name));
             if(singleCust != null)
-            {
                 singleCust.Adress = newCustomer.Adress;
-            }
-            else { Customers.Add(newCustomer); }
+            else
+                Customers.Add(newCustomer);
+
+            UpdateDataBase();
         }
 
-        public string[] GetStringNames()
+        internal string[] GetStringNames() //Returns all Customer names as string array.
         {
             return Customers.Select(x => x.Name).ToArray();
         }
 
-        public Company GetCustomer(int selectedIndex)
+        internal Company GetCustomer(int selectedIndex) //Returns indexed customer.
         {
             return Customers[selectedIndex];
         }
 
-        public void Update()
+        void UpdateDataBase() //Writes to file.
         {
         string serializedCustomers = JsonConvert.SerializeObject(Customers);
-        var directory = Environment.CurrentDirectory + Path.DirectorySeparatorChar + "data";
-        var customerDatabase = String.Format("{0}{1}{2}", directory, Path.DirectorySeparatorChar,"customers.json");
         File.WriteAllText(customerDatabase, serializedCustomers);
         }
 
-        public void DeleteCustomer(int selectedIndex)
+        internal void DeleteCustomer(int selectedIndex) //Removes the customer with index from list.
         {
             Customers.RemoveAt(selectedIndex);
-            Update();
+            UpdateDataBase();
+        }
+
+        internal void SaveMyCompany(MyCompany updatedMyCompany) //Writes to file
+        {
+            string mySerializedCompany = JsonConvert.SerializeObject(updatedMyCompany);
+            File.WriteAllText(myCompanyDataBase, mySerializedCompany);
+        }
+
+        void InitializeMyCompanyProperties() //Reads from file to CurrentCompany-propertie.
+        {
+            try
+            {
+                myCompanyDataBase = String.Format("{0}{1}{2}", directory, Path.DirectorySeparatorChar, "MyCompany.json");
+                string toBeDeSerialized = File.ReadAllText(myCompanyDataBase);
+                CurrentCompany = JsonConvert.DeserializeObject<MyCompany>(toBeDeSerialized);
+            }
+            catch (FileNotFoundException)
+            {
+                File.Create(myCompanyDataBase).Close();
+                CurrentCompany = new MyCompany("Namn", "Adressfält","Bolagsinformation","Tele och mail","Giro","Bankkonto", "Iban", "bic/Swift");
+            }
+        } 
+
+        void InitializeCustomersDataBase() //Reads from file to List of Customers.
+        {
+            try
+            {
+                string toBeDeSerialized = File.ReadAllText(customerDatabase);
+                Customers = JsonConvert.DeserializeObject<List<Customer>>(toBeDeSerialized);
+            }
+            catch
+            {
+                if (!Directory.Exists(directory))
+                    Directory.CreateDirectory(directory);
+
+                if (!File.Exists(customerDatabase))
+                {
+                    File.Create(customerDatabase).Close();
+                    if (Customers == null)
+                    {
+                        Customers = new List<Customer> { new Customer("DefaultCompany", "DefaultCompany") };
+                    }
+                    UpdateDataBase();
+                }
+            }
         }
     }
 }

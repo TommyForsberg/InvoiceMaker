@@ -92,11 +92,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\PDF Makers\EURPdfDocument.cs" />
     <Compile Include="Model\Company\Customer.cs" />
     <Compile Include="Delegate\FilterDelegate.cs" />
     <Compile Include="Model\Invoice\EURInvoice.cs" />
     <Compile Include="Model\PDF Makers\Interface\IPdfDocument.cs" />
-    <Compile Include="Manager.cs" />
     <Compile Include="Model\Invoice\Invoice.cs" />
     <Compile Include="Model\Report.cs" />
     <Compile Include="Model\Company\MyCompany.cs" />
@@ -114,6 +114,7 @@
     <Compile Include="Model\Service.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Model\Invoice\USDInvoice.cs" />
+    <Compile Include="Model\PDF Makers\USDPdfDocument.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -126,6 +127,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="InherentVoice Structure.cd" />
     <None Include="InvoiceMaker_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
