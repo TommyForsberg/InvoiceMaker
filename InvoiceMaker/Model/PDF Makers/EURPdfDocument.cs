@@ -8,7 +8,7 @@ namespace InvoiceMaker
 {
     class EURPdfDocument : SEKPdfDocument
     {
-        public EURPdfDocument(Invoice Model, string LogoPath) : base(Model, LogoPath)
+        public EURPdfDocument(Invoice Model) : base(Model)
         {
         }
         public override void SetAllStrings()

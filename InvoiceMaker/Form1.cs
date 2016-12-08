@@ -14,7 +14,7 @@ namespace InvoiceMaker
     {
         CustomerRepository customerRepository = new CustomerRepository();
         InvoiceRepository invoiceRepository = new InvoiceRepository();
-        string selectedLogo;
+        //string selectedLogo;
         public Form1()
         {
             InitializeComponent();
@@ -24,6 +24,7 @@ namespace InvoiceMaker
 
         private void InitializeMyCompanyTextBoxes()
         {
+            this.pictureBox.ImageLocation = CustomerRepository.LogoPath;
             this.myAdressTextBox.Text = customerRepository.CurrentCompany.Adress;
             this.myCompanyTextBox.Text = customerRepository.CurrentCompany.MyCompanyInfo;
             this.contactTextBox.Text = customerRepository.CurrentCompany.ContactInfo;
@@ -44,17 +45,18 @@ namespace InvoiceMaker
         {
             IPdfDocument pdfInvoice;
             if (radioButtonUSD.Checked)
-                pdfInvoice = new USDPdfDocument(CompileNewInvoice(), selectedLogo);
+                pdfInvoice = new USDPdfDocument(CompileNewInvoice());
             else if (radioButtonEUR.Checked)
-                pdfInvoice = new EURPdfDocument(CompileNewInvoice(), selectedLogo);
+                pdfInvoice = new EURPdfDocument(CompileNewInvoice());
             else
-                pdfInvoice = new SEKPdfDocument(CompileNewInvoice(), selectedLogo);
+                pdfInvoice = new SEKPdfDocument(CompileNewInvoice());
              //SEKPdfDocument temp = new SEKPdfDocument(CompileNewInvoice(),selectedLogo);
         }
 
         private void pushCustomerToReportButton_Click(object sender, EventArgs e) //Get customer from database to Listbox.
         {
-            customerFilterTextBox.Text = customerTextBox.Lines[0];
+            customerFilterTextBox.Text = customerRepository.GetCustomer(listBox1.SelectedIndex).Name;
+            customerRadioButton.Checked = true;
         }
 
         private void addCustomerButton_Click(object sender, EventArgs e) //Add customer to database.
@@ -116,7 +118,7 @@ namespace InvoiceMaker
              }
             return services;
         }
-        private Customer CreateCustomerFromTextBox()
+        private Customer CreateCustomerFromTextBox() // Collects fields and creates Customer.
         {
             try
             {
@@ -124,33 +126,43 @@ namespace InvoiceMaker
             }
             catch (IndexOutOfRangeException)
             {
-                return new Customer(null, null);
+                return new Customer(string.Empty, string.Empty);
             }
         }
 
-        private MyCompany CreateMyCompanyFromTextBox()
+        private MyCompany CreateMyCompanyFromTextBox() //Collects all fields related to "my company and creates a company.
         {
-                return new MyCompany(
-                    myAdressTextBox.Lines[0], myAdressTextBox.Text, myCompanyTextBox.Text, 
-                    contactTextBox.Text, giroTextBox.Text, bankAccountTextBox.Text,ibanTextBox.Text,
-                    bicSwiftTextBox.Text  );
+            try
+            {
+                    return new MyCompany(
+                    myAdressTextBox.Lines[0], myAdressTextBox.Text, myCompanyTextBox.Text,
+                    contactTextBox.Text, giroTextBox.Text, bankAccountTextBox.Text, ibanTextBox.Text,
+                    bicSwiftTextBox.Text);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                    return new MyCompany(
+                    string.Empty, myAdressTextBox.Text, myCompanyTextBox.Text,
+                    contactTextBox.Text, giroTextBox.Text, bankAccountTextBox.Text, ibanTextBox.Text,
+                    bicSwiftTextBox.Text);
+            }
         }
 
-        private decimal GetVatValue() //Sets Vat-value
+        private decimal GetVatValue() //returns VAT-value
         {
 
             if (radioButtonVAT25.Checked)
                 return 0.25M;
-            if (radioButtonVAT6.Checked)
+            else if (radioButtonVAT6.Checked)
                 return 0.6M;
-            if (radioButtonVAT12.Checked)
+            else if (radioButtonVAT12.Checked)
                 return 0.12M;
-            if (radioButtonVAT0.Checked)
+            else if (radioButtonVAT0.Checked)
                 return 0;
             else return 0.25M;
         }
 
-        private int GetPaymentPeriod()
+        private int GetPaymentPeriod() //Returns payment period.
         {
             if (radioButton14Days.Checked)
                 return 14;
@@ -158,13 +170,14 @@ namespace InvoiceMaker
                 return 30;
         }
 
-        private void archiveInvoiceButton_Click(object sender, EventArgs e)
+        private void archiveInvoiceButton_Click(object sender, EventArgs e) //Adds invoice to archive
         {
             invoiceRepository.Add(CompileNewInvoice());
             UpdateDataSources();
+            dataGridView1.Rows.Clear();
         }
 
-        private void deleteCustomerButton_Click(object sender, EventArgs e)
+        private void deleteCustomerButton_Click(object sender, EventArgs e) //Delete customer.
         {
             customerRepository.DeleteCustomer(listBox1.SelectedIndex);
             UpdateDataSources();
@@ -174,7 +187,7 @@ namespace InvoiceMaker
         {
             customerTextBox.Text = customerRepository.GetCustomer(listBox1.SelectedIndex).Adress;
         }
-        private void button3_Click(object sender, EventArgs e)
+        private void reportButton_Click(object sender, EventArgs e) //Initiates report.
         {
             bool fetchAllInvoices;
             if(customerRadioButton.Checked == true)
@@ -186,23 +199,58 @@ namespace InvoiceMaker
             MessageBox.Show(report.ReportMessage(), "Rapport:");
         }
 
-        private void buttonLogo_Click(object sender, EventArgs e)
+        private void buttonLogo_Click(object sender, EventArgs e) //Option to pick image from harddrive to logo.
         {
-            OpenFileDialog logoChoice = new OpenFileDialog();
-            logoChoice.Filter = "All Files (*.*)|*.*";
-
-            if (logoChoice.ShowDialog() == DialogResult.OK)
-            {
-                selectedLogo = logoChoice.FileName;
-                pictureBox.ImageLocation = logoChoice.FileName;
-            }
-            else
-                selectedLogo = string.Empty;
+            customerRepository.SaveMyLogo(string.Empty);
+            pictureBox.ImageLocation = string.Empty;
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            customerRepository.SaveMyCompany(CreateMyCompanyFromTextBox());
+            customerRepository.SaveMyCompany(CreateMyCompanyFromTextBox()); //Saves the current mycompany to hard drive.
+        }
+
+        private void createPdfFromArchivebutton_Click(object sender, EventArgs e)
+        {
+            int result;
+            if (int.TryParse(archiveComboBox.Text, out result))
+            {
+                IPdfDocument pdfInvoice;
+                var invoice = invoiceRepository.FetchInvoice(result);
+                if (invoice != null)
+                {
+                    if (invoice is USDInvoice)
+                        pdfInvoice = new USDPdfDocument(invoice);
+                    else if (radioButtonEUR.Checked)
+                        pdfInvoice = new EURPdfDocument(invoice);
+                    else
+                        pdfInvoice = new SEKPdfDocument(invoice);
+                }
+                else
+                    MessageBox.Show("Fakturanumret hittades inte!");
+            }
+            else
+                MessageBox.Show("Fakturanumret har ett felaktigt format!");
+
+          
+        }
+
+        private void pictureBox_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog logoChoice = new OpenFileDialog();
+            logoChoice.Filter = "All Files (*.*)|*.*";
+            string selectedLogo;
+            if (logoChoice.ShowDialog() == DialogResult.OK)
+            {
+                selectedLogo = logoChoice.FileName;
+                pictureBox.ImageLocation = logoChoice.FileName;
+                customerRepository.SaveMyLogo(selectedLogo);
+            }
+            else
+            {
+                selectedLogo = string.Empty;
+                customerRepository.SaveMyLogo(selectedLogo); //Gå möjligen via static propertie istället
+            }
         }
     }
     }

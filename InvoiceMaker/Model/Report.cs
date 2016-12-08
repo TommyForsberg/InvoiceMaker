@@ -9,7 +9,7 @@ namespace InvoiceMaker
 {
     public class Report
     {
-        
+       
         public List<Invoice> SelectedInvoices { get; private set; }
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
@@ -32,13 +32,17 @@ namespace InvoiceMaker
             this.TotalWithVATAndTaxes = TotalWithVat + TaxesToBePaid;
         }
 
-        decimal ReportEngine(FilterDelegate calculationFilter, Func<Invoice, bool> dateFilter)//, Func<Invoice, bool> customerFilter)
+        decimal ReportEngine(FilterDelegate calculationFilter, Func<Invoice, bool> dateFilter) //Reportfiltering is made with func and delegate
         {
+            //int invoiceCount = 0;
+            //int usdInvoiceCount = 0;
+            //int eurInvoiceCount = 0;
             decimal sum = 0;
             foreach (var invoice in SelectedInvoices)
             {
                 if(dateFilter(invoice)) 
                 {
+                  
                     if (invoice is USDInvoice)
                     {
                         sum += calculationFilter(invoice) * ((USDInvoice)invoice).ExchangeRate;
@@ -62,12 +66,17 @@ namespace InvoiceMaker
 
         public string ReportMessage()
         {
-            return String.Format("Totalt: {0}\nMoms: {1}\nTotalt + moms: {2}\n\nPreliminär skatt:(40%) {3}\nTotalt + moms + skatt: {4}", TotalWithoutVAT.ToString("C",
+            return String.Format("Totalt: {0}" + 
+                Environment.NewLine + "Moms: {1}"+
+                Environment.NewLine +"Totalt + moms: {2}" + Environment.NewLine+
+                Environment.NewLine + "Preliminär skatt:(40%) {3}" + Environment.NewLine+
+                "Totalt + moms + skatt: {4}", TotalWithoutVAT.ToString("C",
                 CultureInfo.CreateSpecificCulture("sv-SE")), VATAmount.ToString("C",
                 CultureInfo.CreateSpecificCulture("sv-SE")), TotalWithVat.ToString("C",
                 CultureInfo.CreateSpecificCulture("sv-SE")), TaxesToBePaid.ToString("C",
                 CultureInfo.CreateSpecificCulture("sv-SE")), TotalWithVATAndTaxes.ToString("C",
                 CultureInfo.CreateSpecificCulture("sv-SE")));
+            
         }
     }
 }

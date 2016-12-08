@@ -36,9 +36,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.radioButtonVAT25 = new System.Windows.Forms.RadioButton();
@@ -53,7 +50,7 @@
             this.addCustomerButton = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.customerFilterTextBox = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.reportButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.customerRadioButton = new System.Windows.Forms.RadioButton();
             this.allRadioButton = new System.Windows.Forms.RadioButton();
@@ -89,6 +86,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.saveButton = new System.Windows.Forms.Button();
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -104,7 +104,7 @@
             // createPdfButton
             // 
             this.createPdfButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.createPdfButton.Location = new System.Drawing.Point(409, 575);
+            this.createPdfButton.Location = new System.Drawing.Point(393, 574);
             this.createPdfButton.Name = "createPdfButton";
             this.createPdfButton.Size = new System.Drawing.Size(135, 40);
             this.createPdfButton.TabIndex = 0;
@@ -114,7 +114,7 @@
             // 
             // myAdressTextBox
             // 
-            this.myAdressTextBox.Location = new System.Drawing.Point(37, 48);
+            this.myAdressTextBox.Location = new System.Drawing.Point(21, 47);
             this.myAdressTextBox.Multiline = true;
             this.myAdressTextBox.Name = "myAdressTextBox";
             this.myAdressTextBox.Size = new System.Drawing.Size(188, 95);
@@ -123,7 +123,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(231, 26);
+            this.label1.Location = new System.Drawing.Point(215, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(78, 20);
             this.label1.TabIndex = 2;
@@ -132,12 +132,12 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.dataGridView1);
-            this.groupBox1.Location = new System.Drawing.Point(37, 283);
+            this.groupBox1.Location = new System.Drawing.Point(21, 295);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(665, 191);
+            this.groupBox1.Size = new System.Drawing.Size(665, 178);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Fakturering";
+            this.groupBox1.Text = "Fakturering (Shift+Enter för radbyte)";
             // 
             // dataGridView1
             // 
@@ -159,33 +159,12 @@
             this.dataGridView1.Location = new System.Drawing.Point(3, 22);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(659, 166);
+            this.dataGridView1.Size = new System.Drawing.Size(659, 153);
             this.dataGridView1.TabIndex = 11;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Label";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Tjänst/Artikel";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 260;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Amount";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Antal";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Width = 65;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Price";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Pris";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Width = 65;
             // 
             // customerTextBox
             // 
-            this.customerTextBox.Location = new System.Drawing.Point(720, 46);
+            this.customerTextBox.Location = new System.Drawing.Point(704, 45);
             this.customerTextBox.Multiline = true;
             this.customerTextBox.Name = "customerTextBox";
             this.customerTextBox.Size = new System.Drawing.Size(205, 97);
@@ -195,7 +174,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(721, 26);
+            this.label2.Location = new System.Drawing.Point(705, 25);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 20);
             this.label2.TabIndex = 6;
@@ -239,7 +218,7 @@
             this.groupBox2.Controls.Add(this.radioButtonVAT25);
             this.groupBox2.Controls.Add(this.radioButtonVAT12);
             this.groupBox2.Controls.Add(this.radioButtonVAT6);
-            this.groupBox2.Location = new System.Drawing.Point(42, 543);
+            this.groupBox2.Location = new System.Drawing.Point(26, 542);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(294, 60);
             this.groupBox2.TabIndex = 10;
@@ -261,7 +240,7 @@
             this.groupBox3.Controls.Add(this.deleteCustomerButton);
             this.groupBox3.Controls.Add(this.pushCustomerToReportButton);
             this.groupBox3.Controls.Add(this.listBox1);
-            this.groupBox3.Location = new System.Drawing.Point(715, 150);
+            this.groupBox3.Location = new System.Drawing.Point(699, 149);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(373, 222);
             this.groupBox3.TabIndex = 11;
@@ -300,7 +279,7 @@
             // 
             // addCustomerButton
             // 
-            this.addCustomerButton.Location = new System.Drawing.Point(931, 96);
+            this.addCustomerButton.Location = new System.Drawing.Point(915, 95);
             this.addCustomerButton.Name = "addCustomerButton";
             this.addCustomerButton.Size = new System.Drawing.Size(121, 47);
             this.addCustomerButton.TabIndex = 2;
@@ -311,14 +290,14 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.customerFilterTextBox);
-            this.groupBox4.Controls.Add(this.button3);
+            this.groupBox4.Controls.Add(this.reportButton);
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.customerRadioButton);
             this.groupBox4.Controls.Add(this.allRadioButton);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.startDateTimePicker);
             this.groupBox4.Controls.Add(this.endDateTimePicker);
-            this.groupBox4.Location = new System.Drawing.Point(715, 378);
+            this.groupBox4.Location = new System.Drawing.Point(699, 377);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(373, 141);
             this.groupBox4.TabIndex = 12;
@@ -332,15 +311,15 @@
             this.customerFilterTextBox.Size = new System.Drawing.Size(190, 26);
             this.customerFilterTextBox.TabIndex = 8;
             // 
-            // button3
+            // reportButton
             // 
-            this.button3.Location = new System.Drawing.Point(248, 85);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(119, 42);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "Rapport!";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.reportButton.Location = new System.Drawing.Point(248, 85);
+            this.reportButton.Name = "reportButton";
+            this.reportButton.Size = new System.Drawing.Size(119, 42);
+            this.reportButton.TabIndex = 7;
+            this.reportButton.Text = "Rapport!";
+            this.reportButton.UseVisualStyleBackColor = true;
+            this.reportButton.Click += new System.EventHandler(this.reportButton_Click);
             // 
             // label4
             // 
@@ -390,6 +369,7 @@
             this.startDateTimePicker.Name = "startDateTimePicker";
             this.startDateTimePicker.Size = new System.Drawing.Size(113, 26);
             this.startDateTimePicker.TabIndex = 1;
+            this.startDateTimePicker.Value =  new System.DateTime(System.DateTime.Now.Year, 1, 1); //Always first day of current year.
             // 
             // endDateTimePicker
             // 
@@ -402,7 +382,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(376, 547);
+            this.label5.Location = new System.Drawing.Point(360, 546);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(126, 20);
             this.label5.TabIndex = 13;
@@ -411,7 +391,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(508, 547);
+            this.label6.Location = new System.Drawing.Point(492, 546);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(51, 20);
             this.label6.TabIndex = 14;
@@ -419,7 +399,7 @@
             // 
             // archiveInvoiceButton
             // 
-            this.archiveInvoiceButton.Location = new System.Drawing.Point(567, 575);
+            this.archiveInvoiceButton.Location = new System.Drawing.Point(551, 574);
             this.archiveInvoiceButton.Name = "archiveInvoiceButton";
             this.archiveInvoiceButton.Size = new System.Drawing.Size(135, 40);
             this.archiveInvoiceButton.TabIndex = 15;
@@ -429,7 +409,7 @@
             // 
             // invoiceNumberNumericUpDown
             // 
-            this.invoiceNumberNumericUpDown.Location = new System.Drawing.Point(567, 543);
+            this.invoiceNumberNumericUpDown.Location = new System.Drawing.Point(551, 542);
             this.invoiceNumberNumericUpDown.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -443,7 +423,7 @@
             // 
             this.groupBox5.Controls.Add(this.createPdfFromArchivebutton);
             this.groupBox5.Controls.Add(this.archiveComboBox);
-            this.groupBox5.Location = new System.Drawing.Point(715, 524);
+            this.groupBox5.Location = new System.Drawing.Point(699, 523);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(373, 79);
             this.groupBox5.TabIndex = 17;
@@ -458,6 +438,7 @@
             this.createPdfFromArchivebutton.TabIndex = 1;
             this.createPdfFromArchivebutton.Text = "Visa PDF";
             this.createPdfFromArchivebutton.UseVisualStyleBackColor = true;
+            this.createPdfFromArchivebutton.Click += new System.EventHandler(this.createPdfFromArchivebutton_Click);
             // 
             // archiveComboBox
             // 
@@ -471,7 +452,7 @@
             // 
             this.groupBox6.Controls.Add(this.radioButton30Days);
             this.groupBox6.Controls.Add(this.radioButton14Days);
-            this.groupBox6.Location = new System.Drawing.Point(44, 480);
+            this.groupBox6.Location = new System.Drawing.Point(28, 479);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(230, 57);
             this.groupBox6.TabIndex = 18;
@@ -506,7 +487,7 @@
             this.groupBoxCurrency.Controls.Add(this.radioButtonEUR);
             this.groupBoxCurrency.Controls.Add(this.radioButtonUSD);
             this.groupBoxCurrency.Controls.Add(this.radioButtonSEK);
-            this.groupBoxCurrency.Location = new System.Drawing.Point(280, 480);
+            this.groupBoxCurrency.Location = new System.Drawing.Point(264, 479);
             this.groupBoxCurrency.Name = "groupBoxCurrency";
             this.groupBoxCurrency.Size = new System.Drawing.Size(244, 57);
             this.groupBoxCurrency.TabIndex = 19;
@@ -548,17 +529,17 @@
             // 
             // buttonLogo
             // 
-            this.buttonLogo.Location = new System.Drawing.Point(425, 242);
+            this.buttonLogo.Location = new System.Drawing.Point(331, 261);
             this.buttonLogo.Name = "buttonLogo";
-            this.buttonLogo.Size = new System.Drawing.Size(102, 38);
+            this.buttonLogo.Size = new System.Drawing.Size(72, 28);
             this.buttonLogo.TabIndex = 20;
-            this.buttonLogo.Text = "Logo";
+            this.buttonLogo.Text = "Rensa";
             this.buttonLogo.UseVisualStyleBackColor = true;
             this.buttonLogo.Click += new System.EventHandler(this.buttonLogo_Click);
             // 
             // myCompanyTextBox
             // 
-            this.myCompanyTextBox.Location = new System.Drawing.Point(231, 48);
+            this.myCompanyTextBox.Location = new System.Drawing.Point(215, 47);
             this.myCompanyTextBox.Multiline = true;
             this.myCompanyTextBox.Name = "myCompanyTextBox";
             this.myCompanyTextBox.Size = new System.Drawing.Size(188, 95);
@@ -567,7 +548,7 @@
             // adress
             // 
             this.adress.AutoSize = true;
-            this.adress.Location = new System.Drawing.Point(37, 26);
+            this.adress.Location = new System.Drawing.Point(21, 25);
             this.adress.Name = "adress";
             this.adress.Size = new System.Drawing.Size(59, 20);
             this.adress.TabIndex = 22;
@@ -575,7 +556,7 @@
             // 
             // contactTextBox
             // 
-            this.contactTextBox.Location = new System.Drawing.Point(37, 173);
+            this.contactTextBox.Location = new System.Drawing.Point(21, 172);
             this.contactTextBox.Multiline = true;
             this.contactTextBox.Name = "contactTextBox";
             this.contactTextBox.Size = new System.Drawing.Size(237, 74);
@@ -584,7 +565,7 @@
             // contactLabel
             // 
             this.contactLabel.AutoSize = true;
-            this.contactLabel.Location = new System.Drawing.Point(33, 150);
+            this.contactLabel.Location = new System.Drawing.Point(17, 149);
             this.contactLabel.Name = "contactLabel";
             this.contactLabel.Size = new System.Drawing.Size(64, 20);
             this.contactLabel.TabIndex = 24;
@@ -592,28 +573,28 @@
             // 
             // bankAccountTextBox
             // 
-            this.bankAccountTextBox.Location = new System.Drawing.Point(425, 103);
+            this.bankAccountTextBox.Location = new System.Drawing.Point(409, 102);
             this.bankAccountTextBox.Name = "bankAccountTextBox";
             this.bankAccountTextBox.Size = new System.Drawing.Size(277, 26);
             this.bankAccountTextBox.TabIndex = 25;
             // 
             // ibanTextBox
             // 
-            this.ibanTextBox.Location = new System.Drawing.Point(425, 155);
+            this.ibanTextBox.Location = new System.Drawing.Point(409, 154);
             this.ibanTextBox.Name = "ibanTextBox";
             this.ibanTextBox.Size = new System.Drawing.Size(277, 26);
             this.ibanTextBox.TabIndex = 26;
             // 
             // bicSwiftTextBox
             // 
-            this.bicSwiftTextBox.Location = new System.Drawing.Point(425, 208);
+            this.bicSwiftTextBox.Location = new System.Drawing.Point(409, 207);
             this.bicSwiftTextBox.Name = "bicSwiftTextBox";
             this.bicSwiftTextBox.Size = new System.Drawing.Size(277, 26);
             this.bicSwiftTextBox.TabIndex = 27;
             // 
             // giroTextBox
             // 
-            this.giroTextBox.Location = new System.Drawing.Point(425, 49);
+            this.giroTextBox.Location = new System.Drawing.Point(409, 48);
             this.giroTextBox.Name = "giroTextBox";
             this.giroTextBox.Size = new System.Drawing.Size(277, 26);
             this.giroTextBox.TabIndex = 28;
@@ -621,7 +602,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(429, 27);
+            this.label7.Location = new System.Drawing.Point(413, 26);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(72, 20);
             this.label7.TabIndex = 29;
@@ -630,7 +611,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(429, 80);
+            this.label8.Location = new System.Drawing.Point(413, 79);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(86, 20);
             this.label8.TabIndex = 30;
@@ -639,7 +620,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(429, 134);
+            this.label9.Location = new System.Drawing.Point(413, 133);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(47, 20);
             this.label9.TabIndex = 31;
@@ -648,7 +629,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(429, 186);
+            this.label10.Location = new System.Drawing.Point(413, 185);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(90, 20);
             this.label10.TabIndex = 32;
@@ -656,7 +637,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(591, 242);
+            this.saveButton.Location = new System.Drawing.Point(575, 241);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(108, 38);
             this.saveButton.TabIndex = 33;
@@ -667,12 +648,32 @@
             // pictureBox
             // 
             this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox.Location = new System.Drawing.Point(280, 173);
+            this.pictureBox.Location = new System.Drawing.Point(264, 172);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(139, 83);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox.TabIndex = 34;
             this.pictureBox.TabStop = false;
+            this.pictureBox.Click += new System.EventHandler(this.pictureBox_Click);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Label";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Tjänst/Artikel";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 360;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Amount";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Antal";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Price";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Pris";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             // 
             // Form1
             // 
@@ -680,7 +681,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(1090, 619);
+            this.ClientSize = new System.Drawing.Size(1090, 627);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.label10);
@@ -750,9 +751,6 @@
         private System.Windows.Forms.RadioButton radioButtonVAT12;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton radioButtonVAT0;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button pushCustomerToReportButton;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -761,7 +759,7 @@
         private System.Windows.Forms.RadioButton customerRadioButton;
         private System.Windows.Forms.RadioButton allRadioButton;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button reportButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
@@ -796,6 +794,9 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     }
 }
 

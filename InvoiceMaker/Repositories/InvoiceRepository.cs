@@ -33,7 +33,7 @@ namespace InvoiceMaker
             var singleInvoice = Invoices.SingleOrDefault(single => single.InvoiceNumber.Equals(newInvoice.InvoiceNumber));
             if (singleInvoice != null)
             {
-                var confirmOverwrite = MessageBox.Show("Fakturanumret finns redan i arkivet. \nErsätt befintlig?", "Faktura: " + newInvoice.InvoiceNumber, MessageBoxButtons.YesNo);
+                var confirmOverwrite = MessageBox.Show("Fakturanumret finns redan i arkivet. " + Environment.NewLine + "Ersätt befintlig?", "Faktura: " + newInvoice.InvoiceNumber, MessageBoxButtons.YesNo);
                 if (confirmOverwrite == DialogResult.Yes)
                 {
                     Invoices.Remove(singleInvoice);
@@ -63,6 +63,19 @@ namespace InvoiceMaker
         {
             return fetchAllInvoices == true ? Invoices : Invoices
                 .FindAll(invoice => invoice.Customer.Name.Equals(customer));
+        }
+
+        internal Invoice FetchInvoice(int invoiceNumber)
+        {
+            try
+            {
+                return Invoices.First(invoice => invoice.InvoiceNumber.Equals(invoiceNumber));
+            }
+            catch
+            {
+                return null;
+            }
+            
         }
        private void InitializeInvoiceDataBase() //Populates list from file
         {

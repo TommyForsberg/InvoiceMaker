@@ -31,12 +31,12 @@ namespace InvoiceMaker
         public string totalGloss { get; set; }
         public Invoice Model { get; set; }
         public string LogoPath { get; set; }
-        public SEKPdfDocument(Invoice Model, string LogoPath)
+        public SEKPdfDocument(Invoice Model)
         {
             SetAllStrings();
             #region Fonts
             this.Model = Model;
-            this.LogoPath = LogoPath;
+            this.LogoPath = CustomerRepository.LogoPath;
             Font helveticaBold16 = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD);
             Font helveticaBold42 = new Font(Font.FontFamily.HELVETICA, 42, Font.BOLD);
             Font helvetica11 = new Font(Font.FontFamily.HELVETICA, 11, Font.NORMAL);
@@ -63,7 +63,7 @@ namespace InvoiceMaker
             #region Opening document for writing and creation of upper table
             doc.Open(); //open the document for writing
             PdfPTable logoTable = new PdfPTable(1); //Upper table with logo.
-            logoTable.DefaultCell.FixedHeight = 85;
+            logoTable.DefaultCell.FixedHeight = 90;
             logoTable.HorizontalAlignment = 1;
             logoTable.DefaultCell.HorizontalAlignment = 1;
             logoTable.DefaultCell.BorderWidth = 0;
@@ -194,7 +194,6 @@ namespace InvoiceMaker
             subTableLeft.AddCell(new Phrase(Model.MyCompany.IBAN, helvetica11));
             subTableLeft.AddCell(new Phrase(bicSwiftGloss, helvetica11));
             subTableLeft.AddCell(new Phrase(Model.MyCompany.BicSwift, helvetica11));
-
 
             PdfPTable subTableRight = new PdfPTable(2);
             subTableRight.DefaultCell.BackgroundColor = new BaseColor(229, 229, 229);

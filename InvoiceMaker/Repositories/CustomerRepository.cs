@@ -11,6 +11,8 @@ namespace InvoiceMaker
     
     class CustomerRepository
     {
+        public static string LogoPath { get; private set; }
+        string logoPathHolder;
         string directory;
         string customerDatabase;
         string myCompanyDataBase;
@@ -19,10 +21,13 @@ namespace InvoiceMaker
 
         public CustomerRepository() //Reads from database or creates a new one.
         {
+           
             directory = Environment.CurrentDirectory + Path.DirectorySeparatorChar + "data";
             customerDatabase = String.Format("{0}{1}{2}", directory,Path.DirectorySeparatorChar, "customers.json");
+            logoPathHolder = String.Format("{0}{1}{2}", directory, Path.DirectorySeparatorChar, "LogoPath.json");
             InitializeCustomersDataBase();
             InitializeMyCompanyProperties();
+            InitializeLogoPath();
         }
         internal void Add(Customer newCustomer) //Checks if new customer exists in list and edits the same if present.
         {                                      //If not present, the new customer is added to list.
@@ -61,6 +66,27 @@ namespace InvoiceMaker
         {
             string mySerializedCompany = JsonConvert.SerializeObject(updatedMyCompany);
             File.WriteAllText(myCompanyDataBase, mySerializedCompany);
+        }
+
+        internal void SaveMyLogo(string newLogoPath)
+        {
+            LogoPath = newLogoPath;
+            string serializedLogoPath = JsonConvert.SerializeObject(newLogoPath);
+            File.WriteAllText(logoPathHolder, serializedLogoPath);
+        }
+
+        void InitializeLogoPath()
+        {
+            try
+            {
+                string toBeDeSerialized = File.ReadAllText(logoPathHolder);
+                LogoPath = JsonConvert.DeserializeObject<string>(toBeDeSerialized);
+            }
+            catch (FileNotFoundException)
+            {
+                File.Create(logoPathHolder).Close();
+                LogoPath = null;
+            }
         }
 
         void InitializeMyCompanyProperties() //Reads from file to CurrentCompany-propertie.

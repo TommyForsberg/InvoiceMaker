@@ -97,5 +97,18 @@ namespace InherentInvoiceTest
             //var actual = report.ReportEngine(invoice => invoice.ServicesTotal(), invoice => invoice.Date >= new DateTime(2011,6,10) && invoice.Date <= new DateTime(2100,11,11));
             Assert.AreEqual(expected, actual);
         }
+        [TestMethod]
+        public void ReportEngineTaxControll()
+        {
+            var invoice = new Invoice(new Customer("", ""), 0.25M,
+            new List<Service> { new Service("Reg", "1", 1000) }, new MyCompany("", "", "", "", "", "", "", ""), 1, 14);
+            List<Invoice> TestInvoice;
+            TestInvoice = new List<Invoice>();
+            TestInvoice.Add(invoice);
+            Report report = new Report(TestInvoice, new DateTime(2011, 6, 10), new DateTime(2100, 11, 11));
+            var expected = 1000 * 0.40M;
+            var actual = report.TaxesToBePaid;
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
